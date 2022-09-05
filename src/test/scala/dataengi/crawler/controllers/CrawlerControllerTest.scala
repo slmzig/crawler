@@ -3,6 +3,7 @@ package dataengi.crawler.controllers
 import akka.http.scaladsl.model.{HttpEntity, MediaTypes, StatusCodes}
 import akka.http.scaladsl.server.Directives
 import akka.http.scaladsl.testkit.ScalatestRouteTest
+import dataengi.crawler.models.{CrawlRequest, CrawlResponse, Data}
 import dataengi.crawler.services.CrawlerService
 import de.heikoseeberger.akkahttpplayjson.PlayJsonSupport._
 import org.scalamock.scalatest.MockFactory

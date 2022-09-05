@@ -1,6 +1,6 @@
 package dataengi.crawler.services
 
-import dataengi.crawler.controllers.CrawlResponse
+import dataengi.crawler.models.CrawlResponse
 
 import scala.concurrent.Future
 
