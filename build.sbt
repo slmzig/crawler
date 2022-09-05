@@ -15,5 +15,5 @@ libraryDependencies ++= Seq(
   "com.softwaremill.macwire" %% "macros" % "2.5.0" % Provided,
   "com.softwaremill.macwire" %% "macrosakka" % "2.5.0" % Provided,
   "com.softwaremill.macwire" %% "util" % "2.5.0",
-
+  "de.heikoseeberger" %% "akka-http-play-json" % "1.38.2",
 )
