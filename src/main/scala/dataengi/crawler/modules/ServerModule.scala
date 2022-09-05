@@ -5,6 +5,7 @@ import akka.stream.ActorMaterializer
 import com.softwaremill.macwire.wire
 import com.typesafe.config.{Config, ConfigFactory}
 import dataengi.crawler.server.{HttpServer, RestApi}
+import dataengi.crawler.services.{CrawlerService, CrawlerServiceImpl}
 
 import scala.concurrent.ExecutionContextExecutor
 
@@ -16,6 +17,7 @@ trait ServerModule {
   lazy val config: Config = ConfigFactory.load()
   lazy val server: HttpServer = wire[HttpServer]
   lazy val restAPI: RestApi = wire[RestApi]
+  lazy val crawlerService: CrawlerService = wire[CrawlerServiceImpl]
 
 }
 
