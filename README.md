@@ -46,6 +46,9 @@ application starts on localhost:8080 address, you can change that in application
 
 `sbt "runMain dataengi.crawler.Bootstrap"`
 
+### run in docker
+todo
+
 ### How to test
 
 ```
