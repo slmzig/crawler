@@ -1,3 +1,4 @@
+import com.typesafe.sbt.packager.docker._
 ThisBuild / scalaVersion := "2.13.8"
 
 lazy val root = (project in file("."))
@@ -14,3 +15,11 @@ lazy val root = (project in file("."))
       else None
     }
   )
+dockerBaseImage := "openjdk:8-jre-alpine"
+dockerCommands := dockerCommands.value.map {
+  case ExecCmd("CMD", _ @_*) =>
+    ExecCmd("CMD", "/opt/docker/bin/crawler")
+  case other =>
+    other
+}
+dockerCommands ++= Seq(Cmd("USER", "root"), ExecCmd("RUN", "apk", "add", "--no-cache", "bash"))
