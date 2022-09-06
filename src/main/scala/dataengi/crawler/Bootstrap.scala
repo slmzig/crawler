@@ -2,7 +2,7 @@ package dataengi.crawler
 
 import dataengi.crawler.modules.ServerModule
 
-import scala.io.StdIn
+import scala.util.{Failure, Success}
 
 /** entry point of the microservice
   *
@@ -12,10 +12,11 @@ import scala.io.StdIn
 object Bootstrap extends App with ServerModule {
   println("starting server ....")
 
-  val future = server.start()
-  StdIn.readLine() // let it run until user presses return, hack for sbt run
-  future
-    .flatMap(_.unbind()) // trigger unbinding from the port
-    .onComplete(_ => system.terminate()) // and shutdown when done
+  val binding = server.start()
+
+  binding.onComplete {
+    case Success(_) => println("Success!")
+    case Failure(error) => println(s"Failed: ${error.getMessage}")
+  }
 
 }

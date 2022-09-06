@@ -23,3 +23,5 @@ dockerCommands := dockerCommands.value.map {
     other
 }
 dockerCommands ++= Seq(Cmd("USER", "root"), ExecCmd("RUN", "apk", "add", "--no-cache", "bash"))
+dockerLabels := Map(version.value -> version.value, "latest" -> version.value)
+dockerUpdateLatest := true

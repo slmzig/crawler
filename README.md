@@ -44,12 +44,18 @@ application starts on localhost:8080 address, you can change that in application
 
 ### locally run
 
-`sbt "runMain dataengi.crawler.Bootstrap"`
+`sbt run`
 
 ### run in docker
-todo
 
-### How to test
+- First log into sbt
+  - `sbt`
+- run command to create local image
+  - `docker:publishLocal`
+- run docker container
+  - `docker run -p 8080:8080 crawler:latest`
+
+### How to test api
 
 ```
 curl --location --request POST 'localhost:8080/api/crawl' \
