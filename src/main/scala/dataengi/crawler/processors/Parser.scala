@@ -27,6 +27,7 @@ class ParserImpl(parserClient: ParserClient, config: Config)(
     Source(urls)
       .mapAsync(parallelism) {
         url: String =>
+          // todo change this
           Future.successful(parserClient.connectAndParse(url))
       }
       .toMat(Sink.fold(List.empty[Data]) {
