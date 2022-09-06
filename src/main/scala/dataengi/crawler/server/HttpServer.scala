@@ -7,6 +7,13 @@ import dataengi.crawler.controllers.CrawlerController
 
 import scala.concurrent.Future
 
+/**
+ * akka http server
+ *
+ * @param config
+ * @param crawlerController
+ * @param system
+ */
 final class HttpServer(config: Config, crawlerController: CrawlerController)(implicit system: ActorSystem) {
   private val host: String = config.getString("server.address.host")
   private val port: Int = config.getInt("server.address.port")

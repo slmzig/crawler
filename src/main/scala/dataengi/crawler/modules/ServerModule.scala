@@ -11,7 +11,9 @@ import dataengi.crawler.services.{CrawlerService, CrawlerServiceImpl}
 
 import scala.concurrent.ExecutionContextExecutor
 
-
+/**
+ * DI with macwire
+ */
 trait ServerModule {
   implicit val system: ActorSystem = ActorSystem("my-system")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
