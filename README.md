@@ -24,18 +24,17 @@ response body:
 
 ```json
 {
+  "result": [
+    {
+      "url": "https://google.com",
+      "data": "..."
+    },
+    {
+      "url": "https://github.com",
+      "data": "..."
     }
-      "result": [
-                {
-                "url": "https://google.com",
-                "data": "..."
-                },
-                {
-                "url": "https://github.com",
-                "data": "..."
-                }
-    ],
-    "error": null
+  ],
+  "error": null
 }
 ```
 
