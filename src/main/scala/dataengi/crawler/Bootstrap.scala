@@ -1,29 +1,16 @@
 package dataengi.crawler
 
-import akka.http.scaladsl.Http
 import dataengi.crawler.modules.ServerModule
 
-import scala.concurrent.Future
-import scala.util.{Failure, Success}
+import scala.io.StdIn
 
 object Bootstrap extends App with ServerModule {
   println("starting server ....")
 
-  startServer().onComplete {
-    case Success(_) =>
-      println("Application initialize successfully")
-    case Failure(error) =>
-      println("Couldn't initialize application", error)
-      sys.exit(1)
-  }
+  val future = server.start()
+  StdIn.readLine() // let it run until user presses return
+  future
+    .flatMap(_.unbind()) // trigger unbinding from the port
+    .onComplete(_ => system.terminate()) // and shutdown when done
 
-  private def startServer(): Future[Http.ServerBinding] =
-    server
-      .start()
-      .transform {
-        case res@Success(binding) =>
-          println(s"Server start on ${binding.localAddress}")
-          res
-        case fail@Failure(_) => fail
-      }
 }
