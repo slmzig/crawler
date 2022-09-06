@@ -5,7 +5,7 @@ import akka.stream.ActorMaterializer
 import com.softwaremill.macwire.wire
 import com.typesafe.config.{Config, ConfigFactory}
 import dataengi.crawler.controllers.CrawlerController
-import dataengi.crawler.processors.{JsoupClient, ParserClient}
+import dataengi.crawler.processors.{JsoupParserClient, Parser, ParserClient, ParserImpl}
 import dataengi.crawler.server.HttpServer
 import dataengi.crawler.services.{CrawlerService, CrawlerServiceImpl}
 
@@ -20,7 +20,8 @@ trait ServerModule {
   lazy val server: HttpServer = wire[HttpServer]
   lazy val crawlerController: CrawlerController = wire[CrawlerController]
   lazy val crawlerService: CrawlerService = wire[CrawlerServiceImpl]
-  lazy val crawlerSe: ParserClient = wire[JsoupClient]
+  lazy val parser: Parser = wire[ParserImpl]
+  lazy val crawlerSe: ParserClient = wire[JsoupParserClient]
 
 }
 
