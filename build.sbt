@@ -1,13 +1,16 @@
-ThisBuild / version := "0.1.0-SNAPSHOT"
-
 ThisBuild / scalaVersion := "2.13.8"
 
-lazy val akkaHttpVersion = "10.2.9"
-lazy val akkaVersion = "2.6.19"
-
 lazy val root = (project in file("."))
+  .enablePlugins(JavaAppPackaging)
+  .enablePlugins(GitVersioning)
   .settings(
     name := "crawler",
-    libraryDependencies ++= Dependencies.libraries
+    scalaVersion := "2.13.6",
+    libraryDependencies ++= Dependencies.libraries,
+    git.useGitDescribe := true,
+    git.baseVersion := "0.0.0",
+    git.gitTagToVersionNumber := { tag: String =>
+      if (tag matches "([0-9]+\\\\.[0-9]+\\\\.[0-9]+)") Some(tag)
+      else None
+    }
   )
-  .enablePlugins(JavaAppPackaging)

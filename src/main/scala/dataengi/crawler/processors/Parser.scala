@@ -13,27 +13,24 @@ trait Parser {
   def stream(urls: List[String]): Future[CrawlResponse]
 }
 
-class ParserImpl(parserClient: ParserClient, config: Config)(
-  implicit val materializer: ActorMaterializer,
-  implicit val executionContext: ExecutionContext) extends Parser {
+class ParserImpl(parserClient: ParserClient, config: Config)(implicit val materializer: ActorMaterializer,
+                                                             implicit val executionContext: ExecutionContext)
+    extends Parser {
 
   private val parallelism: Int = config.getInt("server.stream.parallelism")
 
-  def parse(url: String): Data = {
+  def parse(url: String): Data =
     parserClient.connectAndParse(url)
-  }
 
-  def stream(urls: List[String]): Future[CrawlResponse] = {
+  def stream(urls: List[String]): Future[CrawlResponse] =
     Source(urls)
-      .mapAsync(parallelism) {
-        url: String =>
-          // todo change this
-          Future.successful(parserClient.connectAndParse(url))
+      .mapAsync(parallelism) { url: String =>
+        // todo change this
+        Future.successful(parserClient.connectAndParse(url))
       }
-      .toMat(Sink.fold(List.empty[Data]) {
-        (agg: List[Data], data: Data) =>
-          data :: agg
-      })(Keep.right).run()
+      .toMat(Sink.fold(List.empty[Data]) { (agg: List[Data], data: Data) =>
+        data :: agg
+      })(Keep.right)
+      .run()
       .map(CrawlResponse(_))
-  }
 }

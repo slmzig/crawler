@@ -4,9 +4,9 @@ import dataengi.crawler.models.Data
 import org.jsoup.Jsoup
 
 /**
- * in this file we can add different parser clients
- * then we can set one that we want to use in ServerModule.scala
- */
+  * in this file we can add different parser clients
+  * then we can set one that we want to use in ServerModule.scala
+  */
 trait ParserClient {
   def connectAndParse(url: String): Data
 }

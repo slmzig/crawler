@@ -5,10 +5,10 @@ import dataengi.crawler.modules.ServerModule
 import scala.io.StdIn
 
 /** entry point of the microservice
- *
- *  starting http server
- *  getting host and port from application.conf
- */
+  *
+  *  starting http server
+  *  getting host and port from application.conf
+  */
 object Bootstrap extends App with ServerModule {
   println("starting server ....")
 

@@ -9,9 +9,9 @@ import play.api.libs.json.Json
 final class CrawlerController(crawlService: CrawlerService) extends Controller with Directives {
 
   /**
-   * describing routes
-   * for http server
-   */
+    * describing routes
+    * for http server
+    */
   val routes: Route =
     path("api" / "crawl") {
       post {
@@ -21,5 +21,3 @@ final class CrawlerController(crawlService: CrawlerService) extends Controller w
       }
     }
 }
-
-

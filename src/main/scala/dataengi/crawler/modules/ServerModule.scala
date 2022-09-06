@@ -12,18 +12,17 @@ import dataengi.crawler.services.{CrawlerService, CrawlerServiceImpl}
 import scala.concurrent.ExecutionContextExecutor
 
 /**
- * DI with macwire
- */
+  * DI with macwire
+  */
 trait ServerModule {
-  implicit val system: ActorSystem = ActorSystem("my-system")
-  implicit val materializer: ActorMaterializer = ActorMaterializer()
+  implicit val system: ActorSystem                        = ActorSystem("my-system")
+  implicit val materializer: ActorMaterializer            = ActorMaterializer()
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
-  lazy val config: Config = ConfigFactory.load()
-  lazy val server: HttpServer = wire[HttpServer]
-  lazy val crawlerController: CrawlerController = wire[CrawlerController]
-  lazy val crawlerService: CrawlerService = wire[CrawlerServiceImpl]
-  lazy val parser: Parser = wire[ParserImpl]
-  lazy val crawlerSe: ParserClient = wire[JsoupParserClient]
+  lazy val config: Config                                 = ConfigFactory.load()
+  lazy val server: HttpServer                             = wire[HttpServer]
+  lazy val crawlerController: CrawlerController           = wire[CrawlerController]
+  lazy val crawlerService: CrawlerService                 = wire[CrawlerServiceImpl]
+  lazy val parser: Parser                                 = wire[ParserImpl]
+  lazy val crawlerSe: ParserClient                        = wire[JsoupParserClient]
 
 }
-
