@@ -8,7 +8,7 @@ import dataengi.crawler.models.{CrawlResponse, Data}
 import scala.concurrent.{ExecutionContext, Future}
 
 trait Parser {
-  def parse(url: String): Data
+  def parse(url: String): Future[Data]
 
   def stream(urls: List[String]): Future[CrawlResponse]
 }
@@ -19,14 +19,13 @@ class ParserImpl(parserClient: ParserClient, config: Config)(implicit val materi
 
   private val parallelism: Int = config.getInt("server.stream.parallelism")
 
-  def parse(url: String): Data =
+  def parse(url: String): Future[Data] =
     parserClient.connectAndParse(url)
 
   def stream(urls: List[String]): Future[CrawlResponse] =
     Source(urls)
       .mapAsync(parallelism) { url: String =>
-        // todo change this
-        Future.successful(parserClient.connectAndParse(url))
+        parserClient.connectAndParse(url)
       }
       .toMat(Sink.fold(List.empty[Data]) { (agg: List[Data], data: Data) =>
         data :: agg
